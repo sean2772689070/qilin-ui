@@ -1,0 +1,11 @@
+{
+  "name": "@qilin-ui/hooks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "keywords": [],
+  "author": ""
+}

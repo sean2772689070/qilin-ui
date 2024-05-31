@@ -1,0 +1,147 @@
+@use "mixins/mixins" as *;
+
+$switch-small-width: 30px;
+$switch-small-height: 16px;
+
+$switch-default-width: 40px;
+$switch-default-height: 20px;
+
+$switch-large-width: 50px;
+$switch-large-height: 24px;
+
+$switch-cubic: cubic-bezier(0.4, 0, 0.2, 1);
+
+@mixin switch-size($size) {
+  @if $size == 'small' {
+    --qi-switch-width: #{$switch-small-width};
+    --qi-switch-height: #{$switch-small-height};
+    --switch-circle-left: calc(100% - #{$switch-small-height} + 3px);
+  } @else if $size == 'default' {
+    --qi-switch-width: #{$switch-default-width};
+    --qi-switch-height: #{$switch-default-height};
+    --switch-circle-left: calc(100% - #{$switch-default-height}  + 3px);
+  } @else if $size == 'large' {
+    --qi-switch-width: #{$switch-large-width};
+    --qi-switch-height: #{$switch-large-height};
+    --switch-circle-left: calc(100% - #{$switch-large-height} + 3px);
+  }
+
+  .qi-switch__bg {
+    width: var(--qi-switch-width);
+    height: var(--qi-switch-height);
+  }
+  .qi-switch__circle {
+    width: calc(var(--qi-switch-height) - 4px);
+    height: calc(var(--qi-switch-height) - 4px);
+    left: 1px;
+  }
+}
+
+@include b(switch){
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600;
+  --qi-switch-off-color: #DDDFE6;
+  --qi-switch-on-color: #768BB5;
+  --qi-switch-off-text-color: #303133;
+  --qi-switch-on-text-color: #768BB5;
+
+  @include e(active-action-text) {
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  @include e(inactive-action-text) {
+    margin-left: 10px;
+    cursor: pointer;
+  }
+
+  @include e(bg) {
+    display: inline-flex;
+    position: relative;
+    align-items: center;
+    width: 40px;
+    height: 20px;
+    outline: none;
+    border-radius: 9999px;
+    box-sizing: border-box;
+    background: var(--qi-switch-off-color);
+    border: 1px solid var(--qi-switch-off-color);
+    cursor: pointer;
+    padding: 0 1px;
+    transition: border-color .3s $switch-cubic, background-color .3s $switch-cubic;
+  }
+  @include e(circle) {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 1px;
+    width: calc($switch-default-height - 4px);
+    height: calc($switch-default-height - 4px);
+    border-radius: 99999px;
+    background: #fff;
+    transition: left .3s $switch-cubic;
+  }
+  &:not(.is-model) {
+    .qi-switch__bg {
+      background-color: var(--qi-switch-off-color);
+      border-color: var(--qi-switch-off-color);
+      color: var(--qi-switch-off-color);
+    }
+    .qi-switch__active-action-text {
+      color: var(--qi-switch-on-text-color);
+    }
+    .qi-switch__inactive-action-text {
+      color: var(--qi-switch-off-text-color);
+    }
+    .qi-switch__circle {
+      left: 1px;
+    }
+  }
+
+  @include switch-size('default'); // 默认大小
+  &.qi-switch__small {
+    @include switch-size('small'); // 小号开关
+  }
+  &.qi-switch__large {
+    @include switch-size('large'); // 大号开关
+  }
+  &.is-model {
+    .qi-switch__bg {
+          background-color: var(--qi-switch-on-color);
+          border-color: var(--qi-switch-on-color);
+          color: var(--qi-switch-on-color);
+        }
+    .qi-switch__active-action-text {
+      color: var(--qi-switch-off-text-color);
+    }
+    .qi-switch__inactive-action-text {
+      color: var(--qi-switch-on-text-color);
+    }
+    .qi-switch__circle {
+      left: var(--switch-circle-left);
+    }
+  }
+
+  &.is-disabled,&.is-loading {
+    cursor: not-allowed;
+    .qi-switch__bg {
+      cursor: not-allowed;
+      overflow: hidden;
+    }
+    .qi-switch__active-action-text {
+      cursor: not-allowed;
+    }
+    .qi-switch__inactive-action-text {
+      cursor: not-allowed;
+    }
+    .qi-switch__bg:after {
+      content: '';
+      position: absolute;
+      left: -4px;
+      width: 110%;
+      height: 110%;
+      background-color: rgba(255,255,255,.4);
+    }
+  }
+}

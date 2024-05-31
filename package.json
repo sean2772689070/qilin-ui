@@ -1,0 +1,52 @@
+{
+  "name": "qilin-ui-monorepo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "pnpm --filter @qilin-ui/playground dev",
+    "docs:dev": "pnpm --filter @qilin-ui/docs dev",
+    "docs:build": "pnpm --filter @qilin-ui/docs build",
+    "docs:preview": "pnpm --filter @qilin-ui/docs preview",
+    "test": "echo 'todo'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "workspaces": [
+    "packages/*"
+  ],
+  "dependencies": {
+    "@qilin-ui/constants": "workspace:*",
+    "@qilin-ui/hooks": "workspace:*",
+    "@qilin-ui/theme-chalk": "workspace:*",
+    "@qilin-ui/utils": "workspace:*",
+    "lodash-es": "^4.17.21",
+    "qilin-ui": "workspace:*",
+    "vue": "^3.4.21"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.24.5",
+    "@types/lodash-es": "^4.17.12",
+    "@types/node": "^20.11.20",
+    "@typescript-eslint/eslint-plugin": "^7.10.0",
+    "@typescript-eslint/parser": "^7.10.0",
+    "@vicons/ionicons5": "^0.12.0",
+    "@vitejs/plugin-vue-jsx": "^3.1.0",
+    "@vue/eslint-config-typescript": "^13.0.0",
+    "@vue/tsconfig": "^0.5.1",
+    "eslint": "8.57.0",
+    "eslint-plugin-vue": "^9.23.0",
+    "postcss-color-mix": "^1.1.0",
+    "postcss-each": "^1.1.0",
+    "postcss-each-variables": "^0.3.0",
+    "postcss-for": "^2.1.1",
+    "postcss-nested": "^6.0.1",
+    "prettier": "3.2.5",
+    "sass": "^1.77.1",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0",
+    "vitest": "^1.4.0",
+    "vue-tsc": "^2.0.6"
+  }
+}

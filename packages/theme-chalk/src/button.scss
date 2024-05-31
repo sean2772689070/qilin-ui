@@ -1,0 +1,103 @@
+@use 'mixins/mixins' as *;
+@use 'common/var' as *;
+@use "color/index";
+
+// 定义一个通用的辅助类
+@mixin disabled-loading-style {
+  cursor: not-allowed;
+}
+
+// 定义一个通用的伪元素样式
+@mixin overlay-background($color) {
+  &:after {
+    content: '';
+    position: absolute;
+    width: 104%;
+    left: -2%;
+    top: -2%;
+    height: 104%;
+    background-color: $color;
+  }
+}
+
+
+
+@include b(button){
+  // BEM规范
+  position: relative;
+  align-items:center;
+  display:inline-flex;
+  cursor:pointer;
+  outline:none;
+  border:1px solid $color-white;
+  border-radius: 4px;
+  user-select:none;
+  padding:8px 15px;
+  font-size:14px;
+  font-weight:600;
+
+  &:hover {
+    @include overlay-background(rgba(255,255,255,0.2))
+  }
+  @include e(loading) {
+    fill: $color-white;
+    margin-right: 4px;
+  }
+  @include m(small){
+    padding:5px 11px;
+    height: 24px;
+    font-size: 12px;
+    .qi-button__loading {
+      font-size: 14px;
+    }
+  }
+  @include m(medium){
+    padding:8px 15px;
+    height: 32px;
+    font-size: 14px;
+    .qi-button__loading {
+      font-size: 16px;
+    }
+  }
+  @include m(large){
+    padding:12px 19px;
+    height: 40px;
+    font-size: 14px;
+    .qi-button__loading {
+      font-size: 18px;
+    }
+  }
+
+  &.is-disabled,
+  &.is-loading{
+    &,
+    &:hover,
+    &:focus {
+      @include disabled-loading-style;
+    }
+    @include overlay-background(rgba(255,255,255,0.3));
+  }
+
+
+  @include when(round) {
+    border-radius:999999px;
+  }
+  @include m(primary) {
+    @include button-variant($color-white, $color-primary, $color-primary);
+  }
+  @include m(success) {
+    @include button-variant($color-white, $color-success, $color-success);
+  }
+  @include m(warning) {
+    @include button-variant($color-white, $color-warning, $color-warning);
+  }
+  @include m(danger) {
+    @include button-variant($color-white, $color-danger, $color-danger);
+  }
+  @include m(info) {
+    @include button-variant($color-white, $color-info, $color-info);
+  }
+  @include m(default) {
+    @include button-variant($color-regular, $color-white, $color-default);
+  }
+}

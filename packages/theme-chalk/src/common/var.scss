@@ -1,0 +1,93 @@
+@use "sass:math";
+@use "sass:map";
+
+// types
+$types: primary, success, warning, danger, error, info;
+
+// color
+$colors: () !default;
+$colors: map.deep-merge(
+      (
+        'white': #ffffff,
+        'black': #000000,
+        'primary': (
+          'base': #768BB5
+        ),
+        'success': (
+          'base': #18A058
+        ),
+        'warning': (
+          'base': #EFA11F
+        ),
+        'danger': (
+          'base': #D13050
+        ),
+        'error': (
+          'base': #D13050
+        ),
+        'info': (
+          'base': #909399
+        ),
+        'default': (
+          'base': #606367
+        ),
+        'regular': (
+          'base': #606266
+        )
+      ),
+  $colors
+);
+
+$color-white: map.get($colors, 'white') !default;
+$color-black: map.get($colors, 'black') !default;
+$color-primary: map.get($colors, 'primary', 'base') !default;
+$color-regular: map.get($colors, 'regular', 'base') !default;
+$color-success: map.get($colors, 'success', 'base') !default;
+$color-warning: map.get($colors, 'warning', 'base') !default;
+$color-danger: map.get($colors, 'danger', 'base') !default;
+$color-info: map.get($colors, 'info', 'base') !default;
+$color-default: map.get($colors, 'default', 'base') !default;
+
+// size
+$size: small, medium, large;
+
+$sizes: () !default;
+$sizes: map.deep-merge(
+  (
+    'small': (
+      'base': 24px,
+      'font-size': 12px,
+      'border-radius': 4px
+    ),
+    'medium': (
+      'base': 32px,
+      'font-size': 14px,
+      'border-radius': 4px
+    ),
+    'large': (
+      'base': 40px,
+      'font-size': 14px,
+      'border-radius': 4px
+    )
+  ),
+  $sizes
+);
+
+$small-size: map.get($sizes, 'small', 'base') !default;
+$medium-size: map.get($sizes, 'medium', 'base') !default;
+$large-size: map.get($sizes, 'large', 'base') !default;
+
+$small-font-size: map.get($sizes, 'small', 'font-size') !default;
+$medium-font-size: map.get($sizes, 'medium', 'font-size') !default;
+$large-font-size: map.get($sizes, 'large', 'font-size') !default;
+
+$small-border-radius: map.get($sizes, 'small', 'border-radius') !default;
+$medium-border-radius: map.get($sizes, 'medium', 'border-radius') !default;
+$large-border-radius: map.get($sizes, 'large', 'border-radius') !default;
+
+
+//avatar
+$avatar-size-small: 24px !default;
+$avatar-size-medium: 40px !default;
+$avatar-size-large: 56px !default;
+$avatar-bg-color: #C0C4CC !default;

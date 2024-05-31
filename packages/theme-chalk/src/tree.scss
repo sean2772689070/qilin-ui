@@ -1,0 +1,59 @@
+@use "mixins/mixins" as *;
+
+@include b(tree) {
+  display: inline-block;
+  width: 100%;
+}
+
+@include b(tree-node) {
+  padding: 5px 0;
+  font-size: 16px;
+
+  // 使用变量替换硬编码的颜色值
+  $node-hover-bg: #F3F3F5;
+  $node-selected-bg: #E9F4F5;
+  $node-disabled-color: #c3c3c3;
+
+  &:not(.is-disabled) {
+    .qi-tree-node__content {
+      cursor: pointer;
+    }
+    &:hover {
+      background-color: $node-hover-bg;
+      cursor: pointer;
+    }
+  }
+  &.is-disabled {
+    .qi-tree-node__content {
+      cursor: not-allowed;
+      color: $node-disabled-color;
+    }
+    .qi-tree-node__expand-icon {
+      cursor: pointer;
+    }
+  }
+
+  @include e(content) {
+    display: flex;
+    align-items: center;
+  }
+
+  @include e(expand-icon) {
+    display: flex;
+    align-items: center;
+    transition: transform 0.25s linear;
+
+    // 简化动画
+    &.expanded {
+      transform: rotate(90deg);
+    }
+    &.is-leaf {
+      fill: transparent;
+      cursor: pointer;
+    }
+  }
+
+  @include when(selected) {
+    background-color: $node-selected-bg;
+  }
+}
