@@ -24,7 +24,7 @@ export default defineConfig({
     },
     nav: [
       { text: '指南', link: '/guide/installation', activeMatch: '/guide/' },
-      { text: '组件', link: '/component/icons', activeMatch: '/component/' }
+      { text: '组件', link: '/component/icon', activeMatch: '/component/' }
     ],
 
     sidebar: {
@@ -41,20 +41,20 @@ export default defineConfig({
         {
           text: 'Basic 基础组件',
           items: [
-            { text: 'Icon 图标', link: '/component/icons' },
+            { text: 'Icon 图标', link: '/component/icon' },
             { text: 'Button 按钮', link: '/component/button' }
           ]
         },{
         text: 'Form 表单组件',
           items: [
-            { text: 'Checkbox 多选框', link: '/component/checkbox.md'},
-            { text: 'Switch 开关', link: '/component/switch.md'},
-            { text: 'Input 输入框', link: '/component/input.md'}
+            { text: 'Checkbox 多选框', link: '/component/checkbox'},
+            { text: 'Switch 开关', link: '/component/switch'},
+            { text: 'Input 输入框', link: '/component/input'}
           ]
         },{
           text: 'Data 数据展示',
           items: [
-            { text: 'Tree 虚拟化树形控件', link: '/component/tree.md'}
+            { text: 'Tree 虚拟化树形控件', link: '/component/tree'}
           ]
         }
       ]

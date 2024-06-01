@@ -2,7 +2,7 @@
 
 <template>
   <div>saasdsa</div>
-  <qi-button>按钮</qi-button>
+  <qi-button type="primary" icon="search"></qi-button>
 </template>
 
 <style scoped></style>

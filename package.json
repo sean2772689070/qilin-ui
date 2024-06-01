@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "dev": "pnpm --filter @qilin-ui/playground dev",
+    "story": "pnpm --filter @qilin-ui/playground storybook",
+    "test": "pnpm --filter @qilin-ui/components test",
     "docs:dev": "pnpm --filter @qilin-ui/docs dev",
     "docs:build": "pnpm --filter @qilin-ui/docs build",
-    "docs:preview": "pnpm --filter @qilin-ui/docs preview",
-    "test": "echo 'todo'"
+    "docs:preview": "pnpm --filter @qilin-ui/docs preview"
   },
   "keywords": [],
   "author": "",
@@ -21,8 +22,11 @@
     "@qilin-ui/hooks": "workspace:*",
     "@qilin-ui/theme-chalk": "workspace:*",
     "@qilin-ui/utils": "workspace:*",
-    "lodash-es": "^4.17.21",
     "qilin-ui": "workspace:*",
+    "@fortawesome/fontawesome-svg-core": "^6.5.2",
+    "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@fortawesome/vue-fontawesome": "^3.0.8",
+    "lodash-es": "^4.17.21",
     "vue": "^3.4.21"
   },
   "devDependencies": {

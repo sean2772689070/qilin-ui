@@ -1,0 +1,54 @@
+@use "mixins/mixins" as *;
+
+
+@include b(button-group) {
+  --qi-button-group-border-color: var(--qi-border-color-lighter);
+}
+
+@include b(button-group) {
+  display: inline-flex;
+  vertical-align: middle;
+
+  &:after {
+    clear: both;
+  }
+
+  & > .qi-button {
+    float: left;
+    position: relative;
+    margin-left: 0;
+    &:first-child {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-right-color: var(--qi-button-group-border-color);
+    }
+
+    &:last-child {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-left-color: var(--qi-button-group-border-color);
+    }
+
+    &:not(:first-child):not(:last-child) {
+      border-radius: 0;
+      border-left-color: var(--qi-button-group-border-color);
+      border-right-color: var(--qi-button-group-border-color);
+    }
+
+    &:not(:last-child) {
+      margin-right: -1px;
+    }
+
+    &:first-child:last-child {
+      border-radius: var(--qi-border-radius-base);
+
+      &.is-round {
+        border-radius: var(--qi-border-radius-base);
+      }
+
+      &.is-circle {
+        border-radius: 50%;
+      }
+    }
+  }
+}

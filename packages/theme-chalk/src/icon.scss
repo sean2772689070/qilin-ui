@@ -1,23 +1,38 @@
 @use 'mixins/mixins' as *;
-@keyframes loading-rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+//@keyframes loading-rotate {
+//  from {
+//    transform: rotate(0deg);
+//  }
+//  to {
+//    transform: rotate(360deg);
+//  }
+//}
 
-@include b(icon) {
+
+@include b(icon){
+  --qi-icon-color: inherit;
   display: inline-flex;
-  height: 1em;
-  width: 1em;
   justify-content: center;
   align-items: center;
-  font-style: normal;
-  font-weight: 600;
-  fill: #667EAD;
-  svg.loading {
-    animation: loading-rotate 0.5s linear infinite;
-  }
+  position: relative;
+  fill: currentColor;
+  color: var(--qi-icon-color);
+  font-size: inherit;
+}
+
+$types: (
+  primary,
+  success,
+  warning,
+  info,
+  danger,
+  error,
+  default,
+  regular
+);
+
+@each $val in $types {
+  .qi-icon--#{$val} {
+  --qi-icon-color: var(--qi-color-#{$val});
+}
 }

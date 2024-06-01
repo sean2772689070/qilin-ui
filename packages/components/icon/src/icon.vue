@@ -1,28 +1,28 @@
 <script setup lang="ts">
 import { createNamespace } from '@qilin-ui/utils';
-import { iconProps } from './icon';
-import { computed } from 'vue';
+import { computed, useSlots } from 'vue';
+import type { IconProps } from './icon.ts';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { omit } from 'lodash-es';
 
 defineOptions({
-  name: 'QiIcon'
+  name: 'QiIcon',
+  inheritAttrs: false
 });
 
 const bem = createNamespace('icon');
 
-const props = defineProps(iconProps);
-
-const style = computed(() => {
-  if (!props.size && !props.color) return {};
-
-  return {
-    ...(props.size ? { 'font-size': props.size + 'px' } : {}),
-    ...(props.color ? { color: props.color } : {})
-  };
-});
+const props = defineProps<IconProps>();
+const slots = useSlots();
+const filterProps = computed(() => omit(props, ['type', 'color']));
+const customStyle = computed(() => ({ color: props.color ?? void 0 }));
 </script>
 
 <template>
-  <i :class="bem.b()" :style="style">
-    <slot></slot>
+  <i :class="[bem.b(), bem.m(type)]" :style="customStyle" v-bind="$attrs">
+    <font-awesome-icon v-bind="filterProps" />
+    <template v-if="slots.icon ?? void 0">
+      <slot name="icon"></slot>
+    </template>
   </i>
 </template>

@@ -1,60 +1,125 @@
 <script setup lang="ts">
 import { createNamespace } from '@qilin-ui/utils';
-import { buttonEmits, buttonProps } from './button.ts';
-import Loading from '@qilin-ui/components/common/icons/Loading.tsx';
-import { useSlots } from 'vue';
+import type { ButtonEmits, ButtonInstance, ButtonProps } from './button.ts';
+import { buttonProps } from './button.ts';
+import { computed, ref, watch } from 'vue';
+import { throttle } from 'lodash-es';
+
+import QiIcon from '../../icon/src/icon.vue';
 
 defineOptions({
-  name: 'QiButton',
-  inheritAttrs: false
+  name: 'QiButton'
 });
 
 const bem = createNamespace('button');
-defineProps(buttonProps);
-const emit = defineEmits(buttonEmits);
+const props = withDefaults(defineProps<ButtonProps>(), {
+  ...buttonProps
+});
+const emit = defineEmits<ButtonEmits>();
 
-const slots = useSlots();
+const slots = defineSlots();
 
-const emitClick = (e: MouseEvent) => {
-  emit('click', e);
-};
+const _ref = ref<HTMLButtonElement>();
 
-const emitMousedown = (e: MouseEvent) => {
-  emit('mousedown', e);
-};
+const hasNonNullDefaultSlotContent = computed(() => {
+  if (typeof slots.default === 'function') {
+    const slotContent = slots.default();
+    return Array.isArray(slotContent)
+      ? slotContent.some((node) =>
+          Boolean(node.text || (node.children && node.children.length))
+        )
+      : Boolean(
+          slotContent.text ||
+            (slotContent.children && slotContent.children.length)
+        );
+  }
+  return false;
+});
+
+const iconStyle = computed(() => ({
+  marginRight:
+    hasNonNullDefaultSlotContent.value && props.iconPlacement === 'left'
+      ? '6px'
+      : '0px',
+  marginLeft:
+    hasNonNullDefaultSlotContent.value && props.iconPlacement === 'right'
+      ? '6px'
+      : '0px'
+}));
+
+const handleBtnClick = (e: MouseEvent) => emit('click', e);
+const handleBtnClickThrottle = throttle(handleBtnClick, props.throttleDuration);
+
+defineExpose<ButtonInstance>({
+  ref: _ref
+});
 </script>
 
 <template>
-  <button
+  <component
+    :is="props.tag"
+    ref="_ref"
+    :autofocus="autofocus"
+    :type="tag === 'button' ? nativeType : void 0"
+    :disabled="disabled || loading ? true : void 0"
     :class="[
       bem.b(),
-      bem.m(type),
-      bem.m(size),
+      bem.m(`${type}-type`),
+      bem.m(`${size}-size`),
+      bem.m(`${iconPlacement}-icon`),
       bem.is('round', round),
+      bem.is('plain', plain),
+      bem.is('circle', circle),
       bem.is('loading', loading),
       bem.is('disabled', disabled)
     ]"
-    :type="nativeType"
-    :disabled="disabled || loading"
-    @click="emitClick"
-    @mousedown="emitMousedown"
+    @click="
+      (e: MouseEvent) =>
+        useThrottle ? handleBtnClickThrottle(e) : handleBtnClick(e)
+    "
   >
     <template v-if="iconPlacement === 'left'">
-      <qi-icon v-if="loading" :class="bem.e('loading')">
-        <loading></loading>
-      </qi-icon>
-      <qi-icon v-if="!loading && slots.icon">
-        <component :is="slots.icon"> </component>
-      </qi-icon>
+      <template v-if="loading">
+        <slot name="loading">
+          <qi-icon
+            :class="bem.e('loading-icon')"
+            :icon="loadingIcon ?? 'spinner'"
+            :style="iconStyle"
+            size="1x"
+            spin
+          >
+          </qi-icon>
+        </slot>
+      </template>
+      <qi-icon
+        v-if="icon && !loading"
+        :icon="icon"
+        :style="iconStyle"
+        size="1x"
+      />
     </template>
+
     <slot></slot>
+
     <template v-if="iconPlacement === 'right'">
-      <qi-icon v-if="loading" :class="bem.e('loading')">
-        <loading></loading>
-      </qi-icon>
-      <qi-icon v-if="!loading && slots.icon">
-        <component :is="slots.icon"> </component>
-      </qi-icon>
+      <template v-if="loading">
+        <slot name="loading">
+          <qi-icon
+            :class="bem.e('loading-icon')"
+            :icon="loadingIcon ?? 'spinner'"
+            :style="iconStyle"
+            size="1x"
+            spin
+          >
+          </qi-icon>
+        </slot>
+      </template>
+      <qi-icon
+        v-if="icon && !loading"
+        :icon="icon"
+        :style="iconStyle"
+        size="1x"
+      />
     </template>
-  </button>
+  </component>
 </template>

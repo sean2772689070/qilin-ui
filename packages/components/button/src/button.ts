@@ -1,6 +1,6 @@
-import type { ExtractPropTypes, PropType } from 'vue';
+import type { DefineComponent, Ref } from 'vue';
 
-export type Size = 'small' | 'medium' | 'large';
+export type Size = 'small' | 'default' | 'large';
 export type Type =
   | 'primary'
   | 'success'
@@ -11,43 +11,48 @@ export type Type =
 export type NativeType = 'button' | 'submit' | 'reset';
 export type Placement = 'left' | 'right';
 
-export const buttonProps = {
-  size: {
-    type: String as PropType<Size>,
-    default: 'medium'
-  },
-  type: {
-    type: String as PropType<Type>,
-    validator: (val: string) => {
-      //   校验值
-      return [
-        'primary',
-        'success',
-        'warning',
-        'danger',
-        'info',
-        'default'
-      ].includes(val);
-    },
-    default: 'default'
-  },
-  round: Boolean,
-  loading: Boolean,
-  disabled: Boolean,
-  nativeType: {
-    type: String as PropType<NativeType>,
-    default: 'button'
-  },
-  iconPlacement: {
-    type: String as PropType<Placement>,
-    default: 'left'
-  }
-} as const;
+type ComponentType = DefineComponent; // 或者 VueConstructor, 根据你的Vue版本和库
 
-export const buttonEmits = {
-  click: (event: MouseEvent) => event instanceof MouseEvent,
-  mousedown: (event: MouseEvent) => event instanceof MouseEvent
+export interface ButtonProps {
+  tag?: string | ComponentType;
+  size?: Size;
+  type?: Type;
+  icon?: string;
+  round?: boolean;
+  plain?: boolean;
+  circle?: boolean;
+  loading?: boolean;
+  disabled: boolean;
+  nativeType: NativeType;
+  iconPlacement: Placement;
+  loadingIcon?: string;
+  autofocus?: boolean;
+  useThrottle?: boolean;
+  throttleDuration?: number;
+}
+
+export const buttonProps: ButtonProps = {
+  tag: 'button', // 注意这里直接赋值为默认值，而不是包含type和default
+  size: 'default',
+  type: 'default',
+  icon: '',
+  round: false,
+  plain: false,
+  circle: false,
+  loading: false,
+  disabled: false,
+  nativeType: 'button',
+  iconPlacement: 'left',
+  loadingIcon: '',
+  autofocus: false,
+  useThrottle: false,
+  throttleDuration: 300
 };
 
-export type ButtonProps = ExtractPropTypes<typeof buttonProps>;
-export type ButtonEmits = typeof buttonEmits;
+export interface ButtonEmits {
+  (e: 'click', val: MouseEvent): void;
+}
+
+export interface ButtonInstance {
+  ref: Ref<HTMLButtonElement | void>;
+}
