@@ -2,10 +2,11 @@
 import { createNamespace } from '@qilin-ui/utils';
 import type { ButtonEmits, ButtonInstance, ButtonProps } from './button.ts';
 import { buttonProps } from './button.ts';
-import { computed, ref } from 'vue';
+import { computed, inject, ref } from 'vue';
 import { throttle } from 'lodash-es';
 
 import QiIcon from '../../icon/src/icon.vue';
+import { BUTTON_GROUP_CTX_KEY } from './constants.ts';
 
 defineOptions({
   name: 'QiButton'
@@ -19,7 +20,11 @@ const emit = defineEmits<ButtonEmits>();
 
 const slots = defineSlots();
 
+const ctx = inject(BUTTON_GROUP_CTX_KEY, void 0);
 const _ref = ref<HTMLButtonElement>();
+const size = computed(() => ctx?.size ?? props?.size ?? '');
+const type = computed(() => ctx?.type ?? props?.type ?? '');
+const disabled = computed(() => ctx?.disabled || props?.disabled || false);
 
 const hasNonNullDefaultSlotContent = computed(() => {
   if (typeof slots.default === 'function') {

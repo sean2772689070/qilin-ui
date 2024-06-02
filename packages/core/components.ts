@@ -1,5 +1,5 @@
-import { QiIcon, QiButton, QiLink } from '@qilin-ui/components';
+import { QiIcon, QiButton, QiButtonGroup, QiLink } from '@qilin-ui/components';
 
 import type { Plugin } from 'vue';
 
-export default [QiIcon, QiButton, QiLink] as Plugin[];
+export default [QiIcon, QiButton, QiButtonGroup, QiLink] as Plugin[];

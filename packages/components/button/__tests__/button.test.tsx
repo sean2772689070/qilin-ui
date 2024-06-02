@@ -1,10 +1,11 @@
 import { describe, it, test, expect, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
+import type { NativeType, ButtonSize, ButtonType } from '../src/button';
+import { createVNode } from 'vue';
 
 import Icon from '../../icon/src/icon.vue';
 import Button from '../src/button.vue';
-import type { NativeType, ButtonSize, ButtonType } from '../src/button';
-import { createVNode } from 'vue';
+import ButtonGroup from '../src/button-group.vue';
 
 describe('Button.vue', () => {
   const onClick = vi.fn();
@@ -310,5 +311,77 @@ describe('Button.vue', () => {
       slots: { default: 'Text' }
     });
     expect(wrapper.vm.iconStyle.marginLeft).toBe('6px');
+  });
+});
+
+describe('ButtonGroup.vue', () => {
+  test('basic button group', async () => {
+    const wrapper = mount(ButtonGroup, {
+      slots: {
+        default: [
+          { template: '<Button>button 1</Button>' },
+          { template: '<Button>button 2</Button>' }
+        ]
+      }
+    });
+
+    expect(wrapper.classes()).toContain('qi-button-group');
+  });
+
+  test('button group size', () => {
+    const sizes = ['large', 'default', 'small'];
+    sizes.forEach((size) => {
+      const wrapper = mount(ButtonGroup, {
+        props: { size },
+        slots: {
+          default: [
+            { template: '<Button>button 1</Button>' },
+            { template: '<Button>button 2</Button>' }
+          ]
+        }
+      });
+
+      const buttonWrappers = wrapper.findAllComponents(Button);
+      buttonWrappers.forEach((buttonWrapper) => {
+        expect(buttonWrapper.classes()).toContain(`qi-button--${size}-size`);
+      });
+    });
+  });
+
+  test('button group type', () => {
+    const types = ['primary', 'success', 'warning', 'danger', 'info'];
+    types.forEach((type) => {
+      const wrapper = mount(ButtonGroup, {
+        props: { type },
+        slots: {
+          default: [
+            { template: '<Button>button 1</Button>' },
+            { template: '<Button>button 2</Button>' }
+          ]
+        }
+      });
+
+      const buttonWrappers = wrapper.findAllComponents(Button);
+      buttonWrappers.forEach((buttonWrapper) => {
+        expect(buttonWrapper.classes()).toContain(`qi-button--${type}-type`);
+      });
+    });
+  });
+
+  test('button group disabled', () => {
+    const wrapper = mount(ButtonGroup, {
+      props: { disabled: true },
+      slots: {
+        default: [
+          { template: '<Button>button 1</Button>' },
+          { template: '<Button>button 2</Button>' }
+        ]
+      }
+    });
+
+    const buttonWrappers = wrapper.findAllComponents(Button);
+    buttonWrappers.forEach((buttonWrapper) => {
+      expect(buttonWrapper.classes()).toContain('is-disabled');
+    });
   });
 });

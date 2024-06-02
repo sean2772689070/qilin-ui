@@ -1,7 +1,7 @@
 import { QiLink } from 'qilin-ui';
-import type { StoryObj, ArgTypes, Meta } from '@storybook/vue3';
+import type { Meta } from '@storybook/vue3';
 
-type Story = StoryObj<typeof QiLink> & { argTypes?: ArgTypes };
+// type Story = StoryObj<typeof QiLink> & { argTypes?: ArgTypes };
 
 const meta: Meta<typeof QiLink> = {
   title: 'Example/Link',
