@@ -1,7 +1,7 @@
-import type { DefineComponent, Ref } from 'vue';
+import type { ComputedRef, DefineComponent, Ref } from 'vue';
 
-export type Size = 'small' | 'default' | 'large';
-export type Type =
+export type ButtonSize = 'small' | 'default' | 'large';
+export type ButtonType =
   | 'primary'
   | 'success'
   | 'warning'
@@ -13,18 +13,23 @@ export type Placement = 'left' | 'right';
 
 type ComponentType = DefineComponent; // 或者 VueConstructor, 根据你的Vue版本和库
 
+type IconStyle = {
+  marginRight: string;
+  marginLeft: string;
+};
+
 export interface ButtonProps {
   tag?: string | ComponentType;
-  size?: Size;
-  type?: Type;
+  size?: ButtonSize;
+  type?: ButtonType;
   icon?: string;
   round?: boolean;
   plain?: boolean;
   circle?: boolean;
   loading?: boolean;
-  disabled: boolean;
-  nativeType: NativeType;
-  iconPlacement: Placement;
+  disabled?: boolean;
+  nativeType?: NativeType;
+  iconPlacement?: Placement;
   loadingIcon?: string;
   autofocus?: boolean;
   useThrottle?: boolean;
@@ -43,7 +48,7 @@ export const buttonProps: ButtonProps = {
   disabled: false,
   nativeType: 'button',
   iconPlacement: 'left',
-  loadingIcon: '',
+  loadingIcon: 'spinner',
   autofocus: false,
   useThrottle: false,
   throttleDuration: 300
@@ -55,4 +60,6 @@ export interface ButtonEmits {
 
 export interface ButtonInstance {
   ref: Ref<HTMLButtonElement | void>;
+  iconStyle: ComputedRef<IconStyle>;
+  hasNonNullDefaultSlotContent: ComputedRef<boolean>;
 }

@@ -1,9 +1,10 @@
 import type { Meta, StoryObj, ArgTypes } from '@storybook/vue3';
-import { fn } from '@storybook/test';
+import { fn, within, userEvent, expect, clearAllMocks } from '@storybook/test';
 
 import { QiButton } from 'qilin-ui';
+import { set } from 'lodash-es';
 
-type Story = StoryObj<typeof QiButton> & { argTypes: ArgTypes };
+type Story = StoryObj<typeof QiButton> & { argTypes?: ArgTypes };
 
 const meta: Meta<typeof QiButton> = {
   title: 'Example/Button',
@@ -84,12 +85,127 @@ export const Default: Story & { args: { content: string } } = {
     setup() {
       return { args };
     },
-    template: `
-      <qi-button v-bind="args">
+    template: container(`
+      <qi-button :data-testid="'story-test-btn'" v-bind="args">
         {{args.content}}
       </qi-button>
-    `
-  })
+    `)
+  }),
+
+  play: async ({ canvasElement, args, step }) => {
+    const canvas = within(canvasElement);
+    const btn = canvas.getByTestId('story-test-btn');
+
+    await step('button click event', async () => {
+      await userEvent.click(btn);
+      await expect(args.onClick).toHaveBeenCalled();
+      clearAllMocks();
+    });
+
+    await step(
+      'When useThrottle is true, the onClick should be called once',
+      async () => {
+        set(args, 'useThrottle', true);
+        await userEvent.tripleClick(btn);
+
+        await expect(args.onClick).toHaveBeenCalledOnce();
+        clearAllMocks();
+      }
+    );
+
+    await step(
+      'When useThrottle is false, the onClick should be called three',
+      async () => {
+        set(args, 'useThrottle', false);
+        await userEvent.tripleClick(btn);
+
+        await expect(args.onClick).toHaveBeenCalledTimes(3);
+        clearAllMocks();
+      }
+    );
+
+    await step(
+      'When disabled is true, the onClick should not be called',
+      async () => {
+        set(args, 'disabled', true);
+        await userEvent.tripleClick(btn);
+
+        await expect(args.onClick).not.toHaveBeenCalled();
+        set(args, 'disabled', false);
+        clearAllMocks();
+      }
+    );
+
+    await step(
+      'When loading is true, the onClick should not be called',
+      async () => {
+        set(args, 'loading', true);
+        await userEvent.tripleClick(btn);
+
+        await expect(args.onClick).not.toHaveBeenCalled();
+        set(args, 'loading', false);
+        clearAllMocks();
+      }
+    );
+  }
 };
+
+export const Autofoucs: Story & { args: { content: string } } = {
+  argTypes: {
+    content: {
+      control: { type: 'text' }
+    }
+  },
+  args: {
+    type: 'primary',
+    content: 'Button',
+    autofocus: true
+  },
+  render: (args) => ({
+    components: { QiButton },
+    setup() {
+      return { args };
+    },
+    template: container(`
+      <h2>请点击浏览器的刷新页面按钮来获取按钮聚焦，之后点击键盘上的Enter键进行测试</h2>
+      <qi-button :data-testid="'story-test-btn'" v-bind="args">
+        {{args.content}}
+      </qi-button>
+    `)
+  }),
+  play: async ({ args }) => {
+    await userEvent.keyboard('{enter}');
+
+    await expect(args.onClick).toHaveBeenCalledOnce();
+    clearAllMocks();
+  }
+};
+
+export const Circle: Story = {
+  args: {
+    icon: 'search',
+    circle: true,
+    type: 'primary'
+  },
+  render: (args) => ({
+    components: { QiButton },
+    setup() {
+      return { args };
+    },
+    template: container(`
+      <qi-button  v-bind="args"/>
+    `)
+  }),
+  play: async ({ canvasElement, args, step }) => {
+    const canvas = within(canvasElement);
+    await step('click button', async () => {
+      await userEvent.click(canvas.getByRole('button'));
+    });
+
+    await expect(args.onClick).toHaveBeenCalled();
+  }
+};
+
+Circle.parameters = {};
 
 export default meta;

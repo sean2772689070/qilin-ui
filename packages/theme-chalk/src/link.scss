@@ -1,0 +1,55 @@
+@use "mixins/mixins" as *;
+
+.qi-link {
+  --qi-link-font-weight: var(--qi-font-weight-primary);
+  --qi-link-text-color: var(--qi-color-default);
+  --qi-link-border-color: var(--qi-color-primary);
+  --qi-link-outline-color: var(--qi-color-primary-light-5);
+  --qi-link-disabled-text-color: var(--qi-disabled-text-color);
+  --qi-link-hover-text-color: var(--qi-color-primary);
+}
+
+@include b(link) {
+  color: var(--qi-link-text-color);
+  font-weight: var(--qi-link-font-weight);
+  outline: var(--qi-link-outline-color);
+  &:hover {
+    cursor: pointer;
+    color: var(--qi-link-hover-text-color);
+  }
+  &.is-underline {
+    &:hover {
+      color: var(--qi-link-hover-text-color);
+      text-decoration: underline;
+    }
+  }
+  &.is-disabled {
+    color: var(--qi-link-disabled-text-color);
+    cursor: not-allowed;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+$types: (
+  primary,
+  success,
+  warning,
+  info,
+  danger,
+  error,
+  default,
+  regular
+);
+
+@each $val in $types {
+  .qi-link--#{$val} {
+    --qi-link-font-weight: var(--qi-font-weight-primary);
+    --qi-link-text-color: var(--qi-color-#{$val});
+    --qi-link-border-color: var(--qi-color-#{$val});
+    --qi-link-outline-color: var(--qi-color-#{$val}-light-5);
+    --qi-link-disabled-text-color: var(--qi-disabled-text-color);
+    --qi-link-hover-text-color: var(--qi-color-#{$val}-light-7);
+  }
+}

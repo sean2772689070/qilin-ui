@@ -2,7 +2,7 @@
 import { createNamespace } from '@qilin-ui/utils';
 import type { ButtonEmits, ButtonInstance, ButtonProps } from './button.ts';
 import { buttonProps } from './button.ts';
-import { computed, ref, watch } from 'vue';
+import { computed, ref } from 'vue';
 import { throttle } from 'lodash-es';
 
 import QiIcon from '../../icon/src/icon.vue';
@@ -48,10 +48,16 @@ const iconStyle = computed(() => ({
 }));
 
 const handleBtnClick = (e: MouseEvent) => emit('click', e);
-const handleBtnClickThrottle = throttle(handleBtnClick, props.throttleDuration);
+const handleBtnClickThrottle = throttle(
+  handleBtnClick,
+  props.throttleDuration,
+  { trailing: false }
+);
 
 defineExpose<ButtonInstance>({
-  ref: _ref
+  ref: _ref,
+  hasNonNullDefaultSlotContent,
+  iconStyle
 });
 </script>
 

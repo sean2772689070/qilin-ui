@@ -1,34 +1,129 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, test, expect, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 
+import Icon from '../../icon/src/icon.vue';
 import Button from '../src/button.vue';
-import type { NativeType, Size, Type } from '../src/button';
+import type { NativeType, ButtonSize, ButtonType } from '../src/button';
+import { createVNode } from 'vue';
 
 describe('Button.vue', () => {
-  // Props: type
-  it('should has the correct type class when type prop is set', () => {
-    const types: Type[] = [
-      'primary',
-      'success',
-      'warning',
-      'danger',
-      'info',
-      'default'
-    ];
-    types.forEach((type) => {
-      const wrapper = mount(Button, {
-        props: { type }
-      });
-      expect(wrapper.classes()).toContain(`qi-button--${type}-type`);
+  const onClick = vi.fn();
+  // basic button
+  test('basic button', async () => {
+    const wrapper = mount(Button, {
+      props: {
+        type: 'primary',
+        onClick
+      },
+      slots: { default: 'basic button' }
     });
+
+    // class
+    expect(wrapper.classes()).toContain('qi-button--primary-type');
+
+    // slot
+    expect(wrapper.get('button').text()).toBe('basic button');
+
+    // events
+    await wrapper.get('button').trigger('click');
+    expect(onClick).toHaveBeenCalledOnce();
+  });
+
+  // disabled button
+  test('disabled button', async () => {
+    const wrapper = mount(Button, {
+      props: {
+        disabled: true,
+        onClick
+      },
+      slots: { default: 'disabled button' }
+    });
+
+    // class
+    expect(wrapper.classes()).toContain('is-disabled');
+
+    // attrs
+    expect(wrapper.attributes('disabled')).toBeDefined();
+    expect(wrapper.find('button').element.disabled).toBeTruthy();
+
+    // events
+    await wrapper.get('button').trigger('click');
+    expect(onClick).toHaveBeenCalledOnce();
+    expect(wrapper.emitted('click')).toBeUndefined();
+  });
+
+  // loading button
+  test('loading button', () => {
+    const wrapper = mount(Button, {
+      props: {
+        loading: true
+      },
+      slots: {
+        default: 'loading button'
+      },
+      global: {
+        stubs: ['QiIcon']
+      }
+    });
+
+    // class
+    expect(wrapper.classes()).toContain('is-loading');
+
+    // attrs
+    expect(wrapper.attributes('disabled')).toBeDefined();
+    expect(wrapper.find('button').element.disabled).toBeTruthy();
+
+    // events
+    wrapper.get('button').trigger('click');
+    expect(wrapper.emitted()).not.toHaveProperty('click');
+
+    // icon
+    const iconElement = wrapper.findComponent(Icon);
+    expect(iconElement.exists()).toBeTruthy();
+    expect(iconElement.attributes('icon')).toBe('spinner');
+  });
+
+  // icon button
+  test('icon button', () => {
+    const wrapper = mount(Button, {
+      props: {
+        icon: 'arrow-up'
+      },
+      slots: {
+        default: 'icon button'
+      },
+      global: {
+        stubs: ['QiIcon']
+      }
+    });
+
+    const iconElement = wrapper.findComponent(Icon);
+    expect(iconElement.exists()).toBeTruthy();
+    expect(iconElement.attributes('icon')).toBe('arrow-up');
+  });
+
+  // Props: type
+  const types: ButtonType[] = [
+    'primary',
+    'success',
+    'warning',
+    'danger',
+    'info',
+    'default'
+  ];
+  types.forEach((type) => {
+    const wrapper = mount(Button, {
+      props: { type }
+    });
+    expect(wrapper.classes()).toContain(`qi-button--${type}-type`);
   });
 
   // Props: size
   it('should has the correct size class when size prop is set', () => {
-    const sizes = ['large', 'default', 'small'];
+    const sizes: ButtonSize[] = ['large', 'default', 'small'];
     sizes.forEach((size) => {
       const wrapper = mount(Button, {
-        props: { size: size as Size }
+        props: { size }
       });
       expect(wrapper.classes()).toContain(`qi-button--${size}-size`);
     });
@@ -54,6 +149,7 @@ describe('Button.vue', () => {
     }
   );
 
+  // props native-type
   it('should has the correct native type attribute when native-type prop is set', () => {
     const nativeTypes: NativeType[] = ['button', 'submit', 'reset'];
     nativeTypes.forEach((nativeType) => {
@@ -73,10 +169,146 @@ describe('Button.vue', () => {
     expect(wrapper.element.tagName.toLowerCase()).toBe('a');
   });
 
-  // Events: click
+  test('renders icon correctly based on iconPlacement', async () => {
+    const wrapper = mount(Button, {
+      props: {
+        icon: 'arrow-up',
+        iconPlacement: 'left', // 设置图标位置为左
+        onClick
+      },
+      global: {
+        components: {
+          Icon
+        }
+      }
+    });
+
+    // 等待组件渲染完成
+    await wrapper.vm.$nextTick();
+
+    // 检查左侧图标
+    const leftIconWrapper = wrapper.find('.qi-button--left-icon .qi-icon');
+    expect(leftIconWrapper.exists()).toBeTruthy();
+
+    // 更改图标位置
+    await wrapper.setProps({ iconPlacement: 'right' });
+
+    // 再次等待组件渲染完成
+    await wrapper.vm.$nextTick();
+
+    // 检查右侧图标
+    const rightIconWrapper = wrapper.find('.qi-button--right-icon .qi-icon');
+    expect(rightIconWrapper.exists()).toBeTruthy();
+  });
+
+  // Events: basic click
   it('should emits a click event when the button is clicked', async () => {
     const wrapper = mount(Button, {});
     await wrapper.trigger('click');
     expect(wrapper.emitted().click).toHaveLength(1);
+  });
+
+  // Test the click event with and without throttle
+  it.each([
+    ['withoutThrottle', false],
+    ['withThrottle', true]
+  ])('%s should emit click event properly', async (scenario, useThrottle) => {
+    const clickSpy = vi.fn();
+
+    // 使用mount挂载组件，并传递props
+    const wrapper = mount(Button, {
+      props: {
+        onClick: clickSpy,
+        useThrottle,
+        throttleDuration: useThrottle ? 400 : undefined // 只有当useThrottle为真时才设置throttleDuration
+      }
+    });
+
+    // 触发点击事件
+    await wrapper.find('button').trigger('click');
+
+    // 验证回调函数是否被调用
+    expect(clickSpy).toHaveBeenCalled();
+  });
+
+  // Exception Handling: loading state
+  it('should display loading icon and not emit click event when button is loading', async () => {
+    const wrapper = mount(Button, {
+      props: { loading: true },
+      global: {
+        stubs: ['QiIcon']
+      }
+    });
+    const iconElement = wrapper.findComponent(Icon);
+
+    expect(wrapper.find('.qi-button__loading-icon').exists()).toBe(true);
+    expect(iconElement.exists()).toBeTruthy();
+    expect(iconElement.attributes('icon')).toBe('spinner');
+    await wrapper.trigger('click');
+    expect(wrapper.emitted('click')).toBeUndefined();
+  });
+
+  // 测试 hasNonNullDefaultSlotContent 计算属性
+  test('hasNonNullDefaultSlotContent with no default slot content', async () => {
+    const wrapper = mount(Button, {
+      slots: {}
+    });
+    expect(wrapper.vm.hasNonNullDefaultSlotContent).toBe(false);
+  });
+
+  test('hasNonNullDefaultSlotContent with text in default slot', async () => {
+    const wrapper = mount(Button, {
+      slots: { default: 'Text Content' }
+    });
+    expect(wrapper.vm.hasNonNullDefaultSlotContent).toBe(true);
+  });
+
+  test('hasNonNullDefaultSlotContent with multiple nodes including non-empty', async () => {
+    const wrapper = mount(Button, {
+      slots: {
+        default: () => [createVNode('span'), createVNode('span', {}, 'Text')]
+      }
+    });
+    expect(wrapper.vm.hasNonNullDefaultSlotContent).toBe(true);
+  });
+
+  test('hasNonNullDefaultSlotContent with single VNode with text', async () => {
+    const wrapper = mount(Button, {
+      slots: { default: () => createVNode('span', {}, 'Text') }
+    });
+    expect(wrapper.vm.hasNonNullDefaultSlotContent).toBe(true);
+  });
+
+  test('hasNonNullDefaultSlotContent with single VNode with children', async () => {
+    const wrapper = mount(Button, {
+      slots: { default: () => createVNode('span', {}, ['Child']) }
+    });
+    expect(wrapper.vm.hasNonNullDefaultSlotContent).toBe(true);
+  });
+
+  // 测试 iconStyle 计算属性
+  test('iconStyle with no default slot content', async () => {
+    const wrapper = mount(Button, {
+      props: { iconPlacement: 'left' },
+      slots: {}
+    });
+    expect(wrapper.vm.iconStyle.marginRight).toBe('0px');
+    expect(wrapper.vm.iconStyle.marginLeft).toBe('0px');
+  });
+
+  test('iconStyle with default slot content and iconPlacement left', async () => {
+    const wrapper = mount(Button, {
+      props: { iconPlacement: 'left' },
+      slots: { default: 'Text' }
+    });
+    expect(wrapper.vm.iconStyle.marginRight).toBe('6px');
+  });
+
+  test('iconStyle with default slot content and iconPlacement right', async () => {
+    const wrapper = mount(Button, {
+      props: { iconPlacement: 'right' },
+      slots: { default: 'Text' }
+    });
+    expect(wrapper.vm.iconStyle.marginLeft).toBe('6px');
   });
 });

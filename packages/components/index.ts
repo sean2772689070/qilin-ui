@@ -1,4 +1,5 @@
 // export * from './avatar';
+export * from './link';
 export * from './button';
 // export * from './checkbox';
 export * from './icon';
