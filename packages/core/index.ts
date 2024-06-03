@@ -8,6 +8,6 @@ library.add(fas);
 
 const installer = makeInstaller(components);
 
-export * from '../components';
+export * from '@qilin-ui/components';
 
 export default installer;

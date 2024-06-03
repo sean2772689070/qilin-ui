@@ -25,3 +25,7 @@ provide(
     <slot></slot>
   </div>
 </template>
+
+<style lang="scss" scoped>
+@import '../style/button-group';
+</style>

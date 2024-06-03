@@ -1,4 +1,4 @@
-@use "mixins/mixins" as *;
+@use "../../../theme-chalk/mixins/mixins" as *;
 
 .qi-link {
   --qi-link-font-weight: var(--qi-font-weight-primary);
@@ -28,6 +28,7 @@
     cursor: not-allowed;
     &:hover {
       text-decoration: none;
+      color: var(--qi-link-disabled-text-color);
     }
   }
 }

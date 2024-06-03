@@ -32,16 +32,19 @@
     /* Linting */
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "types": ["node"],
+    "baseUrl": "./",
+    "paths": {
+      "@qilin-ui/components": ["./packages/components"],
+    }
   },
   "include": [
     "env.d.ts",
     "packages/core/index.ts",
     "packages/hooks/**/*.ts",
     "packages/utils/**/*.ts",
-    "packages/components/index.ts",
     "packages/components/**/*.ts",
-    "packages/components/**/*.vue"
   ],
   "exclude": [
     //排除掉哪些类库

@@ -1,11 +1,14 @@
 {
   "name": "qilin-ui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Components library by Vue3 + TS, This cool",
   "type": "module",
   "main": "./dist/umd/index.umd.cjs",
   "module": "./dist/esm/index.js",
   "types": "./dist/types/core/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
@@ -21,12 +24,9 @@
     "./dist/index.css"
   ],
   "scripts": {
-    "build": "run-s clean build-only move-style",
-    "build-only": "run-p build-esm build-umd",
+    "build": "run-p build-esm build-umd",
     "build-umd": "vite build --config vite.umd.config.ts",
     "build-esm": "vite build --config vite.esm.config.ts",
-    "move-style": "move-file dist/esm/index.css dist/index.css",
-    "clean": "rimraf dist",
     "release": "release-it"
   },
   "dependencies": {
@@ -37,8 +37,11 @@
     "async-validator": "^4.2.5"
   },
   "devDependencies": {
-    "vite-plugin-dts": "^3.9.1",
-    "@qilin-ui/components": "workspace:*"
+    "@qilin-ui/components": "workspace:*",
+    "@rollup/plugin-terser": "^0.4.4",
+    "terser": "^5.31.0",
+    "vite-plugin-compression2": "^1.1.1",
+    "vite-plugin-dts": "^3.9.1"
   },
   "peerDependencies": {
     "vue": "^3.4.21"

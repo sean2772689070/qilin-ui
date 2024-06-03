@@ -1,6 +1,7 @@
 // export * from './avatar';
 export * from './link';
 export * from './button';
+export * from './collapse';
 // export * from './checkbox';
 export * from './icon';
 // export * from './input';

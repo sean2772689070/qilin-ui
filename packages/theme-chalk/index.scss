@@ -1,12 +1,82 @@
-@use 'src/icon';
-@use "src/tree";
-@use "src/virtual";
-@use "src/checkbox";
-@use "src/switch";
-@use "src/button";
-@use "src/input";
-@use "src/radio";
-@use "src/avatar";
-@use "src/base";
-@use "src/link";
-@use "src/button-group";
+@use "reset";
+
+$colors: (
+  primary: #AAE4E6,
+  success: #18A058,
+  warning: #EFA11F,
+  danger: #D13050,
+  error: #D13050,
+  info: #909399,
+  default: #606367,
+  regular: #606266
+);
+
+:root {
+  /* colors */
+  --qi-color-white: #ffffff;
+  --qi-color-black: #000000;
+
+  @each $color-name, $color-value in $colors {
+    --qi-color-#{$color-name}: #{$color-value};
+  }
+
+  --qi-bg-color: #ffffff;
+  --qi-bg-color-page: #f2f3f5;
+  --qi-bg-color-overlay: #ffffff;
+  --qi-text-color-primary: #303133;
+  --qi-text-color-regular: #606266;
+  --qi-text-color-secondary: #909399;
+  --qi-text-color-placeholder: #a8abb2;
+  --qi-text-color-disabled: #c0c4cc;
+  --qi-border-color: #dcdfe6;
+  --qi-border-color-light: #e4e7ed;
+  --qi-border-color-lighter: #ebeef5;
+  --qi-border-color-extra-light: #f2f6fc;
+  --qi-border-color-dark: #d4d7de;
+  --qi-border-color-darker: #cdd0d6;
+  --qi-fill-color: #f0f2f5;
+  --qi-fill-color-light: #f5f7fa;
+  --qi-fill-color-lighter: #fafafa;
+  --qi-fill-color-extra-light: #fafcff;
+  --qi-fill-color-dark: #ebedf0;
+  --qi-fill-color-darker: #e6e8eb;
+  --qi-fill-color-blank: #ffffff;
+
+  @each $val, $color in $colors {
+    --qi-color-#{$val}: #{$color};
+    @for $i from 3 to 9 {
+      --qi-color-#{$val}-light-#{$i}: mix(#fff, #{$color}, ($i / 10));
+    }
+    --qi-color-#{$val}-dark-2: mix(#000, #{$color}, 0.2);
+  }
+
+  /* border */
+  --qi-border-width: 1px;
+  --qi-border-style: solid;
+  --qi-border-color-hover: var(--qi-text-color-disabled);
+  --qi-border: var(--qi-border-width) var(--qi-border-style) var(--qi-border-color);
+  --qi-border-radius-base: 4px;
+  --qi-border-radius-small: 2px;
+  --qi-border-radius-round: 20px;
+  --qi-border-radius-circle: 100%;
+
+  /*font*/
+  --qi-font-size-extra-large: 20px;
+  --qi-font-size-large: 18px;
+  --qi-font-size-medium: 16px;
+  --qi-font-size-base: 14px;
+  --qi-font-size-small: 13px;
+  --qi-font-size-extra-small: 12px;
+  --qi-font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+  'Microsoft YaHei', '\5fae\8f6f\96c5\9ed1', Arial, sans-serif;
+  --qi-font-weight-primary: 500;
+
+  /*disabled*/
+  --qi-disabled-bg-color: var(--qi-fill-color-light);
+  --qi-disabled-text-color: var(--qi-text-color-placeholder);
+  --qi-disabled-border-color: var(--qi-border-color-light);
+
+  /*animation*/
+  --qi-transition-duration: 0.4s;
+  --qi-transition-duration-fast: 0.2s;
+}

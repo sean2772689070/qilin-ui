@@ -1,0 +1,64 @@
+@use "../../../theme-chalk/mixins/mixins" as *;
+.qi-collapse {
+  --qi-collapse-border-color: var(--qi-border-color-light);
+  --qi-collapse-header-height: 48px;
+  --qi-collapse-header-bg-color: var(--qi-fill-color-blank);
+  --qi-collapse-header-text-color: var(--qi-text-color-primary);
+  --qi-collapse-header-font-size: 13px;
+  --qi-collapse-content-bg-color: var(--qi-fill-color-blank);
+  --qi-collapse-content-font-size: 13px;
+  --qi-collapse-content-text-color: var(--qi-text-color-primary);
+  --qi-collapse-disabled-text-color: var(--qi-disabled-text-color);
+  --qi-collapse-disabled-border-color: var(--qi-border-color-lighter);
+  border-top: 1px solid var(--qi-collapse-border-color);
+  border-bottom: 1px solid var(--qi-collapse-border-color);
+}
+
+@include b(collapse-item) {
+  @include e(header) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--qi-collapse-header-height);
+    line-height: var(--qi-collapse-header-height);
+    background-color: var(--qi-collapse-header-bg-color);
+    color: var(--qi-collapse-header-text-color);
+    cursor: pointer;
+    font-size: var(--qi-collapse-header-font-size);
+    font-weight: 500;
+    transition: border-bottom-color var(--qi-transition-duration);
+    outline: none;
+    border-bottom: 1px solid var(--qi-collapse-border-color);
+    &.is-disabled {
+      color: var(--qi-collapse-disabled-text-color);
+      cursor: not-allowed;
+      background-image: none;
+    }
+    &.is-active {
+      border-bottom-color: transparent;
+
+      .header-angle {
+        transform: rotate(90deg);
+      }
+    }
+    .header-angle {
+      transition: transform var(--qi-transition-duration);
+    }
+  }
+
+  @include e(content) {
+    will-change: height;
+    background-color: var(--qi-collapse-content-bg-color);
+    overflow: hidden;
+    box-sizing: border-box;
+    font-size: var(--qi-collapse-content-font-size);
+    color: var(--qi-collapse-content-text-color);
+    border-bottom: 1px solid var(--qi-collapse-border-color);
+    padding-bottom: 25px;
+  }
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: height var(--qi-transition-duration) ease-in-out;
+}

@@ -38,3 +38,7 @@ const handleClick = (event: MouseEvent) => {
     <slot v-if="$slots.icon" name="icon" />
   </a>
 </template>
+
+<style lang="scss" scoped>
+@import '../style/link';
+</style>

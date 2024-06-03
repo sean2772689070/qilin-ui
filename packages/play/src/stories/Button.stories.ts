@@ -1,6 +1,8 @@
 import type { Meta, StoryObj, ArgTypes } from '@storybook/vue3';
 import { fn, within, userEvent, expect, clearAllMocks } from '@storybook/test';
 
+import 'qilin-ui/dist/esm/theme/index.css';
+import 'qilin-ui/dist/esm/theme/button.css';
 import { QiButton } from 'qilin-ui';
 import { QiButtonGroup } from 'qilin-ui';
 import { set } from 'lodash-es';

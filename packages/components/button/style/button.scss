@@ -1,4 +1,4 @@
-@use 'mixins/mixins' as *;
+@use '../../../theme-chalk/mixins/mixins' as *;
 @use "sass:map";
 
 
@@ -25,7 +25,7 @@
 
 
 
-@include b(button) {
+@include b('button') {
   display: inline-flex;
   justify-content: center;
   align-items: center;
