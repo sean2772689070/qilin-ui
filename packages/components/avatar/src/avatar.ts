@@ -19,7 +19,8 @@ export const avatarProps = {
   },
   src: String,
   srcSet: String,
-  alt: String
+  alt: String,
+  icon: String
 } as const;
 
 export const avatarEmits = {

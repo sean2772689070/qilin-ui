@@ -5,7 +5,7 @@ import type { CSSProperties } from 'vue';
 import { computed, ref, useSlots, watch } from 'vue';
 // eslint-disable-next-line vue/prefer-import-from-vue
 import { isString } from '@vue/shared';
-import QiIcon from '@qilin-ui/components/icon';
+import QiIcon from '../../icon/src/icon.vue';
 
 defineOptions({
   name: 'QiAvatar'
@@ -64,9 +64,7 @@ const slots = useSlots();
       :style="fitStyle"
       @error="handleError"
     />
-    <qi-icon v-else-if="slots.icon">
-      <component :is="slots.icon"></component>
-    </qi-icon>
+    <qi-icon v-else-if="slots.icon" icon="icon" />
     <slot v-else />
   </span>
 </template>

@@ -1,0 +1,54 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "compilerOptions": {
+    "module": "ESNext", //打包模块类型
+    "declaration": false, //默认不要声明文件
+    "noImplicitAny": true, //支持类型不标注阔以默认any
+    "removeComments": true, //删除注释
+    "moduleResolution": "bundler", // 按照bundler模块来解析
+    "esModuleInterop": true, //支持es6,commonjs模块
+    "jsx": "preserve", //jsx不转
+    "noLib": false, //不处理类库
+    "target": "ES2020", //编译成es2020
+    "sourceMap": true,
+    "useDefineForClassFields": true,
+    "lib": [
+      // 编译时用的库
+      "DOM",
+      "ES2020",
+      "DOM.Iterable"
+    ],
+    "allowSyntheticDefaultImports": true, //允许没有导出的模块中导入
+    "experimentalDecorators": true, //装饰器语法
+    "forceConsistentCasingInFileNames": true, //强制区分大小写
+    "skipLibCheck": true, //跳过库检查
+    "strict": true, //严格模式
+    "resolveJsonModule": true, //解析json模块     /* Skip type checking all .d.ts files. */
+    "jsxImportSource": "vue",
+    "allowImportingTsExtensions": true,
+    /* Bundler mode */
+    "isolatedModules": true,
+    "noEmit": true,
+    /* Linting */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": [
+    "env.d.ts",
+    "packages/core/index.ts",
+    "packages/hooks/**/*.ts",
+    "packages/utils/**/*.ts",
+    "packages/components/index.ts",
+    "packages/components/**/*.ts",
+    "packages/components/**/*.vue"
+  ],
+  "exclude": [
+    //排除掉哪些类库
+    "node_modules",
+    "**/__tests__",
+    "dist/**",
+    "packages/components/vite.config.ts"
+  ],
+
+}

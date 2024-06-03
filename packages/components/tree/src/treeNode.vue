@@ -3,12 +3,9 @@ import { treeNodeEmits, treeNodeProps } from './tree';
 import { createNamespace } from '@qilin-ui/utils';
 import { computed } from 'vue';
 
-import Switcher from '@qilin-ui/components/common/icons/Switcher.tsx';
-import Loading from '@qilin-ui/components/common/icons/Loading.tsx';
-
 import QiTreeNodeContent from './tree-node-content';
-import QiCheckbox from '@qilin-ui/components/checkbox';
-import QiIcon from '@qilin-ui/components/icon';
+import QiCheckbox from '../../checkbox/src/checkbox.vue';
+import QiIcon from '../../icon/src/icon.vue';
 
 const bem = createNamespace('tree-node');
 
@@ -59,10 +56,11 @@ const handleCheck = (val: boolean) => {
         ]"
         @click.stop="handleExpand"
       >
-        <qi-icon v-if="!node.isLeaf" size="16" color="pink">
-          <switcher v-if="!isLoading"></switcher>
-          <loading v-else></loading>
-        </qi-icon>
+        <qi-icon
+          v-if="!node.isLeaf"
+          size="1x"
+          :icon="!isLoading ? 'search' : 'loading'"
+        />
       </span>
       <qi-checkbox
         v-if="showCheckbox"
