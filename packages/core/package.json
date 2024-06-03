@@ -17,7 +17,9 @@
       "require": "./dist/"
     }
   },
-  "sideEffects": ["./dist/index.css"],
+  "sideEffects": [
+    "./dist/index.css"
+  ],
   "scripts": {
     "build": "run-s clean build-only move-style",
     "build-only": "run-p build-esm build-umd",
