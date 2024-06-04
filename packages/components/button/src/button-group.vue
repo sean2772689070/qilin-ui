@@ -27,5 +27,5 @@ provide(
 </template>
 
 <style lang="scss" scoped>
-@import '../style/button-group';
+@import '../style';
 </style>

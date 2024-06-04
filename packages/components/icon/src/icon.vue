@@ -28,5 +28,5 @@ const customStyle = computed(() => ({ color: props.color ?? void 0 }));
 </template>
 
 <style lang="scss" scoped>
-@import '../style/icon';
+@import '../style';
 </style>

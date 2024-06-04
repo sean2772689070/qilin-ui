@@ -136,5 +136,5 @@ defineExpose<ButtonInstance>({
 </template>
 
 <style lang="scss" scoped>
-@import '../style/button';
+@import '../style';
 </style>

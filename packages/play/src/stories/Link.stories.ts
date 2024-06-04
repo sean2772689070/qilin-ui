@@ -1,7 +1,7 @@
 import { QiIcon, QiLink } from 'qilin-ui';
 import type { Meta, StoryObj } from '@storybook/vue3';
-import 'qilin-ui/dist/esm/theme/index.css';
-import 'qilin-ui/dist/esm/theme/link.css';
+
+import 'qilin-ui/dist/theme/link.css';
 
 type Story = StoryObj<typeof QiLink>;
 

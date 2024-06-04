@@ -1,5 +1,4 @@
-@use "../../../theme-chalk/mixins/mixins" as *;
-
+@use '../mixins/mixins' as *;
 
 @include b(button-group) {
   --qi-button-group-border-color: var(--qi-border-color-lighter);
@@ -16,7 +15,7 @@
   & > .qi-button {
     float: left;
     position: relative;
-    margin-left: 0;
+    margin-left: 0 !important;
     &:first-child {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;

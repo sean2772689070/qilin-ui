@@ -1,4 +1,4 @@
-@use '../../../theme-chalk/mixins/mixins' as *;
+@use '../mixins/mixins' as *;
 @use "sass:map";
 
 
@@ -19,8 +19,6 @@
   --qi-button-active-bg-color: var(--qi-button-hover-bg-color);
   --qi-button-outline-color: var(--qi-color-primary-light-5);
   --qi-button-active-color: var(--qi-text-color-primary);
-
-
 }
 
 
@@ -175,5 +173,7 @@ $types: (
     height: 12px;
   }
 }
+
+
 
 

@@ -1,4 +1,4 @@
-@use "../../../theme-chalk/mixins/mixins" as *;
+@use "../mixins/mixins" as *;
 .qi-collapse {
   --qi-collapse-border-color: var(--qi-border-color-light);
   --qi-collapse-header-height: 48px;

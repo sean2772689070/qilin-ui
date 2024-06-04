@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { QiCollapse, QiCollapseItem } from 'qilin-ui';
 
-import 'qilin-ui/dist/esm/theme/index.css';
-import 'qilin-ui/dist/esm/theme/collapse.css';
+import 'qilin-ui/dist/theme/collapse.css';
 
 type Story = StoryObj<typeof QiCollapse>;
 

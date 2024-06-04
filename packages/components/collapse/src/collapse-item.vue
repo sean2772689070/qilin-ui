@@ -50,5 +50,5 @@ const handleClick = () => {
 </template>
 
 <style lang="scss" scoped>
-@import '../style/collapse-item';
+@import '../style';
 </style>

@@ -40,5 +40,5 @@ const handleClick = (event: MouseEvent) => {
 </template>
 
 <style lang="scss" scoped>
-@import '../style/link';
+@import '../style';
 </style>

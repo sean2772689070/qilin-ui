@@ -25,8 +25,11 @@
   ],
   "scripts": {
     "build": "run-p build-esm build-umd",
+    "build:watch": "run-p build-esm:watch build-umd:watch",
     "build-umd": "vite build --config vite.umd.config.ts",
     "build-esm": "vite build --config vite.esm.config.ts",
+    "build-umd:watch": "vite build --watch --config vite.umd.config.ts",
+    "build-esm:watch": "vite build --watch --config vite.esm.config.ts",
     "release": "release-it"
   },
   "dependencies": {

@@ -1,4 +1,4 @@
-@use "../../../theme-chalk/mixins/mixins" as *;
+@use "../mixins/mixins" as *;
 
 .qi-link {
   --qi-link-font-weight: var(--qi-font-weight-primary);

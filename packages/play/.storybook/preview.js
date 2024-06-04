@@ -10,4 +10,12 @@ const preview = {
   }
 };
 
+// 这里可以全局引入样式、组件等
+import 'qilin-ui/dist/theme/index.css';
+export const decorators = [
+  (story) => {
+    return story();
+  }
+];
+
 export default preview;

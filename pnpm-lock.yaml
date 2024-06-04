@@ -72,6 +72,9 @@ importers:
       '@vue/tsconfig':
         specifier: ^0.5.1
         version: 0.5.1
+      cross-env:
+        specifier: ^7.0.3
+        version: 7.0.3
       eslint:
         specifier: 8.57.0
         version: 8.57.0
@@ -2869,6 +2872,11 @@ packages:
     peerDependenciesMeta:
       typescript:
         optional: true
+
+  cross-env@7.0.3:
+    resolution: {integrity: sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw==}
+    engines: {node: '>=10.14', npm: '>=6', yarn: '>=1'}
+    hasBin: true
 
   cross-spawn@6.0.5:
     resolution: {integrity: sha512-eTVLrBSt7fjbDygz805pMnstIs2VTBNkRm0qxZd+M7A5XDdxVRWO5MxGBXZhjY4cqLYLdtrGqRf8mBPmzwSpWQ==}
@@ -9433,6 +9441,10 @@ snapshots:
       parse-json: 5.2.0
     optionalDependencies:
       typescript: 5.4.5
+
+  cross-env@7.0.3:
+    dependencies:
+      cross-spawn: 7.0.3
 
   cross-spawn@6.0.5:
     dependencies:

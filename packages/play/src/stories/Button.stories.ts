@@ -1,10 +1,8 @@
 import type { Meta, StoryObj, ArgTypes } from '@storybook/vue3';
 import { fn, within, userEvent, expect, clearAllMocks } from '@storybook/test';
 
-import 'qilin-ui/dist/esm/theme/index.css';
-import 'qilin-ui/dist/esm/theme/button.css';
-import { QiButton } from 'qilin-ui';
-import { QiButtonGroup } from 'qilin-ui';
+import 'qilin-ui/dist/theme/button.css';
+import { QiButton, QiButtonGroup } from 'qilin-ui';
 import { set } from 'lodash-es';
 
 type Story = StoryObj<typeof QiButton> & { argTypes?: ArgTypes };
@@ -245,7 +243,7 @@ export const Group: Story & { args: { content1: string; content2: string } } = {
       return { args };
     },
     template: container(`
-       <qi-button-group :type="args.groupType" :size="args.groupSize" :disabled="args.groupDisabled">
+       <qi-button-group :type="args.type" :size="args.size" :disabled="args.disabled">
          <qi-button v-bind="args">{{args.content1}}</qi-button>
          <qi-button v-bind="args">{{args.content2}}</qi-button>
        </qi-button-group>
