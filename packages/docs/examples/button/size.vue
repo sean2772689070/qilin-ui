@@ -9,7 +9,9 @@
 </template>
 // #endregion snippet
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { QiButton } from 'qilin-ui';
+</script>
 <style scoped>
 .mb-4 {
   display: flex;

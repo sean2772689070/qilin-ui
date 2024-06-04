@@ -44,19 +44,20 @@ export default defineConfig({
             { text: 'Icon 图标', link: '/component/icon' },
             { text: 'Button 按钮', link: '/component/button' }
           ]
-        },{
-        text: 'Form 表单组件',
-          items: [
-            { text: 'Checkbox 多选框', link: '/component/checkbox'},
-            { text: 'Switch 开关', link: '/component/switch'},
-            { text: 'Input 输入框', link: '/component/input'}
-          ]
-        },{
-          text: 'Data 数据展示',
-          items: [
-            { text: 'Tree 虚拟化树形控件', link: '/component/tree'}
-          ]
-        }
+        },
+        // {
+        //   text: 'Form 表单组件',
+        //   items: [
+        //     { text: 'Checkbox 多选框', link: '/component/checkbox'},
+        //     { text: 'Switch 开关', link: '/component/switch'},
+        //     { text: 'Input 输入框', link: '/component/input'}
+        //   ]
+        // },{
+        //   text: 'Data 数据展示',
+        //   items: [
+        //     { text: 'Tree 虚拟化树形控件', link: '/component/tree'}
+        //   ]
+        // }
       ]
     },
 

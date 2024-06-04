@@ -2,6 +2,7 @@
 <!--demo片段 🎉-->
 <script setup lang="ts">
 import { CashOutline } from '@vicons/ionicons5';
+import { QiButton } from 'qilin-ui';
 </script>
 <template>
   <div class="mb-4">

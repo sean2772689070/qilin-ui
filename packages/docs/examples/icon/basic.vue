@@ -1,31 +1,25 @@
 // #region snippet
 <!--demo片段 🎉-->
 <script setup lang="ts">
-import { CashOutline } from '@vicons/ionicons5';
+import { QiIcon } from 'qilin-ui';
 </script>
 <!-- 使用 qi-icons 为 SVG 图标提供属性 -->
 <template>
   <div>
-    <qi-icon color="#667EAD" size="40">
-      <CashOutline />
-    </qi-icon>
-    <qi-icon color="#758E5D" size="40">
-      <CashOutline />
-    </qi-icon>
-    <qi-icon color="#D97E54" size="40">
-      <CashOutline />
-    </qi-icon>
+    <qi-icon icon="ghost" size="2x" />
+    <qi-icon icon="ghost" size="2x" />
+    <qi-icon icon="ghost" size="2x" />
   </div>
   <div>
-    <qi-icon color="#667EAD" size="64">
-      <CashOutline />
-    </qi-icon>
-    <qi-icon color="#758E5D" size="64">
-      <CashOutline />
-    </qi-icon>
-    <qi-icon color="#D97E54" size="64">
-      <CashOutline />
-    </qi-icon>
+    <qi-icon icon="ghost" size="3x" color="#AAE4E6" />
+    <qi-icon icon="ghost" size="3x" color="#83F7D6" />
+    <qi-icon icon="ghost" size="3x" color="#FCD590" />
   </div>
 </template>
 // #endregion snippet
+
+<style scoped>
+.qi-icon {
+  margin: 0 10px;
+}
+</style>
