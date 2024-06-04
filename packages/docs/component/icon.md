@@ -8,32 +8,8 @@ QiLin-ui 推荐使用 [xicons](https://www.xicons.org/) 作为图标库。
 
 ## 安装
 
-### 使用包管理器
-
-::: code-group
-
-```npm
-$ npm withInstall @vicons/ionicons5
-```
-
-```pnpm
-$ pnpm withInstall @vicons/ionicons5
-```
-
-:::
-
-## 基础用法
-
-<script setup lang="ts">
-import Basic from '../examples/icon/basic.vue'
-</script>
-
-::: tip 演示
-<basic/>
-:::
-
-::: details 点击展开代码
-<<< @/examples/icon/basic.vue#snippet{1}
+:::preview
+demo-preview=../examples/icon/basic.vue
 :::
 
 

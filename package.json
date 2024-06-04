@@ -2,7 +2,7 @@
   "name": "qilin-ui-monorepo",
   "version": "1.0.0",
   "type": "module",
-  "main": "index.ts",
+  "main": "index.js",
   "scripts": {
     "dev": "pnpm run build && pnpm --filter @qilin-ui/playground dev",
     "story": "pnpm run build && pnpm --filter @qilin-ui/playground storybook",
@@ -10,7 +10,7 @@
     "build": "cross-env NODE_ENV=production pnpm --filter qilin-ui build",
     "build:dev": "cross-env NODE_ENV=development pnpm --filter qilin-ui build:watch",
     "docs:dev": "pnpm --filter @qilin-ui/docs dev",
-    "docs:build": "pnpm --filter @qilin-ui/docs build",
+    "docs:build": "pnpm run build && pnpm --filter @qilin-ui/docs build",
     "docs:preview": "pnpm --filter @qilin-ui/docs preview"
   },
   "keywords": [],
