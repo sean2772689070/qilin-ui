@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { createNamespace } from '@qilin-ui/utils/create.ts';
+import type { TModelValue } from './switch.ts';
 import { switchProps } from './switch.ts';
 import { computed } from 'vue';
-import type { TModelValue } from './switch.ts';
 import Loading from '@qilin-ui/components/common/icons/Loading.tsx';
 
 defineOptions({

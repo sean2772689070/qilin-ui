@@ -8,7 +8,7 @@ hero:
   tagline: 西兰卡普风格的组件库
   image:
     light:
-      src: '/logo-light.png'
+      src: '/logo.png'
       alt: 'QiLin Logo'
       css: 'display: block;'
     dark:

@@ -1,6 +1,6 @@
-import { describe, it, test, expect, vi } from 'vitest';
+import { describe, expect, it, test, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
-import type { NativeType, ButtonSize, ButtonType } from '../src/button';
+import type { ButtonSize, ButtonType, NativeType } from '../src/button';
 import { createVNode } from 'vue';
 
 import Icon from '../../icon/src/icon.vue';

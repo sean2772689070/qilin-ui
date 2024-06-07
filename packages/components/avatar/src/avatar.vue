@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { avatarEmits, avatarProps } from './avatar.ts';
+import { type AvatarEmits, avatarProps } from './avatar.ts';
+import type { AvatarProps } from './avatar.ts';
 import { createNamespace } from '@qilin-ui/utils/create.ts';
 import type { CSSProperties } from 'vue';
 import { computed, ref, useSlots, watch } from 'vue';
-// eslint-disable-next-line vue/prefer-import-from-vue
-import { isString } from '@vue/shared';
+import { isString } from 'lodash-es';
 import QiIcon from '../../icon/src/icon.vue';
 
 defineOptions({
@@ -12,8 +12,8 @@ defineOptions({
 });
 
 const bem = createNamespace('avatar');
-const props = defineProps(avatarProps);
-const emit = defineEmits(avatarEmits);
+const props = withDefaults(defineProps<AvatarProps>(), avatarProps);
+const emit = defineEmits<AvatarEmits>();
 
 const avatarClass = computed(() => {
   const { size, shape } = props;

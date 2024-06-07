@@ -1,10 +1,11 @@
 import {
-  QiIcon,
   QiButton,
   QiButtonGroup,
-  QiLink,
   QiCollapse,
-  QiCollapseItem
+  QiCollapseItem,
+  QiIcon,
+  QiLink,
+  QiText
 } from '@qilin-ui/components';
 
 import type { Plugin } from 'vue';
@@ -15,5 +16,6 @@ export default [
   QiButtonGroup,
   QiLink,
   QiCollapse,
-  QiCollapseItem
+  QiCollapseItem,
+  QiText
 ] as Plugin[];

@@ -16,8 +16,8 @@ const isTest = process.env.NODE_ENV === 'test';
 
 function moveStyles() {
   try {
-    readFileSync('./dist/umd/index.css.gz');
-    shell.cp('./dist/umd/index.css', './dist/index.css');
+    readFileSync('./dist/umd/src.css.gz');
+    shell.cp('./dist/umd/src.css', './dist/src.css');
   } catch (_) {
     delay(moveStyles, TRY_MOVE_STYLES_DELAY);
   }
@@ -30,7 +30,7 @@ export default defineConfig({
       include: /.(cjs|css)$/i
     }),
     hooks({
-      rmFiles: ['./dist/umd', './dist/index.css'],
+      rmFiles: ['./dist/umd', './dist/src.css'],
       afterBuild: moveStyles
     }),
     terser({
@@ -49,7 +49,7 @@ export default defineConfig({
   build: {
     outDir: 'dist/umd',
     lib: {
-      entry: resolve(__dirname, './index.ts'),
+      entry: resolve(__dirname, '../index.ts'),
       name: 'qilin-ui',
       fileName: 'index',
       formats: ['umd']
@@ -62,7 +62,7 @@ export default defineConfig({
           vue: 'Vue'
         },
         assetFileNames: (assetInfo) => {
-          if (assetInfo.name === 'style.css') return 'index.css';
+          if (assetInfo.name === 'style.css') return 'src.css';
           return assetInfo.name as string;
         }
       }

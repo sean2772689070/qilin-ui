@@ -62,4 +62,7 @@ export interface ButtonInstance {
   ref: Ref<HTMLButtonElement | void>;
   iconStyle: ComputedRef<IconStyle>;
   hasNonNullDefaultSlotContent: ComputedRef<boolean>;
+  disabled: ComputedRef<boolean>;
+  size: ComputedRef<ButtonSize | ''>;
+  type: ComputedRef<ButtonType | ''>;
 }

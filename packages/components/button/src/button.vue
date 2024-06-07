@@ -1,8 +1,14 @@
 <script setup lang="ts">
 import { createNamespace } from '@qilin-ui/utils';
-import type { ButtonEmits, ButtonInstance, ButtonProps } from './button.ts';
+import type {
+  ButtonEmits,
+  ButtonInstance,
+  ButtonProps,
+  ButtonSize,
+  ButtonType
+} from './button.ts';
 import { buttonProps } from './button.ts';
-import { computed, inject, ref } from 'vue';
+import { computed, type ComputedRef, inject, ref } from 'vue';
 import { throttle } from 'lodash-es';
 
 import QiIcon from '../../icon/src/icon.vue';
@@ -22,8 +28,15 @@ const slots = defineSlots();
 
 const ctx = inject(BUTTON_GROUP_CTX_KEY, void 0);
 const _ref = ref<HTMLButtonElement>();
-const size = computed(() => ctx?.size ?? props?.size ?? '');
-const type = computed(() => ctx?.type ?? props?.type ?? '');
+const size = computed(() => {
+  const sizeValue = ctx?.size ?? props?.size;
+  return sizeValue !== undefined ? (sizeValue as ButtonSize) : '';
+});
+
+const type = computed(() => {
+  const typeValue = ctx?.type ?? props?.type;
+  return typeValue !== undefined ? (typeValue as ButtonType) : '';
+});
 const disabled = computed(() => ctx?.disabled || props?.disabled || false);
 
 const hasNonNullDefaultSlotContent = computed(() => {
@@ -62,7 +75,10 @@ const handleBtnClickThrottle = throttle(
 defineExpose<ButtonInstance>({
   ref: _ref,
   hasNonNullDefaultSlotContent,
-  iconStyle
+  iconStyle,
+  disabled,
+  type,
+  size
 });
 </script>
 

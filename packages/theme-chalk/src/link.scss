@@ -39,9 +39,7 @@ $types: (
   warning,
   info,
   danger,
-  error,
-  default,
-  regular
+  default
 );
 
 @each $val in $types {

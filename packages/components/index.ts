@@ -4,6 +4,7 @@ export * from './button';
 export * from './collapse';
 // export * from './checkbox';
 export * from './icon';
+export * from './text';
 // export * from './input';
 // export * from './switch';
 // export * from './tree';

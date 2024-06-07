@@ -1,6 +1,5 @@
 import { beforeAll, describe, expect, test, vi } from 'vitest';
-import { DOMWrapper, mount } from '@vue/test-utils';
-import type { VueWrapper } from '@vue/test-utils';
+import { DOMWrapper, VueWrapper, mount } from '@vue/test-utils';
 import Collapse from '../src/collapse.vue';
 import CollapseItem from '../src/collapse-item.vue';
 

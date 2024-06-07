@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { vi, describe, it, expect } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import Link from '../src/link.vue';
 import Icon from '../../icon/src/icon.vue';
 

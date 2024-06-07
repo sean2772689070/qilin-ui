@@ -1,0 +1,60 @@
+@use "../mixins/mixins" as *;
+
+.qi-text {
+  --qi-text-font-size: var(--qi-font-size-base);
+  --qi-text-font-weight: var(--qi-font-weight-primary);
+  --qi-text-text-color: var(--qi-color-default);
+  --qi-text-disabled-text-color: var(--qi-disabled-text-color);
+  --qi-text-hover-text-color: var(--qi-color-primary);
+}
+
+@include b(text) {
+  align-self: center;
+  margin: 0;
+  padding: 0;
+  color: var(--qi-text-text-color);
+  font-weight: var(--qi-text-font-weight);
+  font-size: var(--qi-text-font-size);
+  overflow-wrap: break-word;
+  &.is-truncated {
+    display: inline-block;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  &.is-line-clamp {
+    display: -webkit-box;
+    -webkit-box-orient: vertical; /* 设置为垂直方向 */
+    overflow: hidden;
+  }
+}
+
+.qi-text--small-size {
+  font-size: 12px;
+  line-height: calc(12px * 1.2);
+}
+
+.qi-text--large-size {
+  font-size: 16px;
+  line-height: calc(16px * 1.2);
+}
+
+$types: (
+  primary,
+  success,
+  warning,
+  info,
+  danger,
+  default
+);
+
+@each $val in $types {
+  .qi-text--#{$val}-type {
+    --qi-text-font-weight: var(--qi-font-weight-primary);
+    --qi-text-text-color: var(--qi-color-#{$val});
+    --qi-text-border-color: var(--qi-color-#{$val});
+    --qi-text-disabled-text-color: var(--qi-disabled-text-color);
+    --qi-text-hover-text-color: var(--qi-color-#{$val}-light-7);
+  }
+}
