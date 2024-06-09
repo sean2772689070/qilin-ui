@@ -1,0 +1,45 @@
+@use "../mixins/mixins" as *;
+
+.qi-avatar {
+  --qi-avatar-bg-color: #CCCCCC;
+  --qi-avatar-border-color: var(--qi-border-color);
+}
+
+
+@include b('avatar') {
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  overflow: hidden;
+  border-radius: 4px;
+  background-color: var(--qi-avatar-bg-color);
+
+  @include e('img') {
+    width: 100%;
+    height: 100%;
+  }
+
+  &.is-bordered {
+    border: 1px solid var(--qi-avatar-border-color);
+  }
+
+  &.is-round {
+    border-radius: 9999999px;
+  }
+}
+
+.qi-avatar--large {
+  font-size: 32px;
+  width: 56px;
+  height: 56px;
+}
+
+.qi-avatar--small {
+  font-size: 18px;
+  width: 34px;
+  height: 34px;
+}

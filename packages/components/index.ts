@@ -1,4 +1,4 @@
-// export * from './avatar';
+export * from './avatar';
 export * from './link';
 export * from './button';
 export * from './collapse';

@@ -3,4 +3,4 @@ import { withInstall } from '@qilin-ui/utils';
 
 export const QiAvatar = withInstall(_Avatar);
 
-// export default QiAvatar;
+export * from './src/avatar.ts';

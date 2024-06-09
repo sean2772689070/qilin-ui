@@ -8,7 +8,7 @@ import type {
   ButtonType
 } from './button.ts';
 import { buttonProps } from './button.ts';
-import { computed, type ComputedRef, inject, ref } from 'vue';
+import { computed, inject, ref } from 'vue';
 import { throttle } from 'lodash-es';
 
 import QiIcon from '../../icon/src/icon.vue';

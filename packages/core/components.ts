@@ -1,4 +1,5 @@
 import {
+  QiAvatar,
   QiButton,
   QiButtonGroup,
   QiCollapse,
@@ -11,6 +12,7 @@ import {
 import type { Plugin } from 'vue';
 
 export default [
+  QiAvatar,
   QiIcon,
   QiButton,
   QiButtonGroup,
